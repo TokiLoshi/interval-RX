@@ -16,8 +16,7 @@ Instructions coming soon.
 
 #### Project set up basics
 
-- [ ] Track time spent coding this project
-- [ ] Initialize project files, create virtual env, repo and install dependencies
+- [x] Initialize project files, create virtual env, repo and install dependencies
 - [ ] Set up basic file structure for code organization
 
 #### Set up REPL
@@ -28,6 +27,7 @@ Instructions coming soon.
 #### Configure timer and intervals
 
 - [ ] Set up timer mechanism to trigger reminders at regular intervals
+- [ ] Add a integration for how long on this project
 - [ ] Add customization of interval duration through a configuration file or REPL input
 
 ### Phase 2: Exercise and Tracking Features
