@@ -21,24 +21,6 @@
       "date_modified": "02/11/2024, 15:47:29"
     },
     {
-      "name": "testing",
-      "equipment": [
-        "N/A"
-      ],
-      "directions": [
-        "one"
-      ],
-      "sets": 3,
-      "reps_per_set": 2,
-      "frequency": 1,
-      "total_reps": 6,
-      "hold_time": null,
-      "resistance": "1",
-      "weight": "1",
-      "date_added": "02/11/2024, 16:24:01",
-      "date_modified": "02/11/2024, 16:24:01"
-    },
-    {
       "name": "test1",
       "equipment": [
         "NA"

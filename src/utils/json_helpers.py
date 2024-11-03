@@ -19,6 +19,8 @@ def get_progress():
   except Exception as e:
     print(f"Getting an unknown exception loading progress: {e}")
     return None 
+  
+
 
 def get_exercises():
   print("Getting exercises...")
@@ -41,6 +43,15 @@ def get_exercises():
   except Exception as e:
     print(f"Getting an unknown exception loading exercises: {e}")
     return None
+  
+def save_progress(data): 
+  try: 
+    with open("data/progress.json", "w") as file: 
+      json.dump(data, file, indent=2)
+    return True
+  except Exception as e:
+    print(f"Error saving progress: {e}")
+    return False
 
 def save_exercises(data):
   try:
