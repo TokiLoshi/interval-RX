@@ -1,4 +1,3 @@
-import sys 
 from src.core.repl import repl 
 
 def main():

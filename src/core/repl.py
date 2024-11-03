@@ -1,29 +1,6 @@
-import json 
 from datetime import datetime 
-
-# Validates user input 
-def get_user_input(prompt):
-  get_input = input(prompt)
-  cleaned_prompt = " ".join(get_input.strip().split())
-  print(f"Cleaned prompt from {get_input} to {cleaned_prompt}")
-  return cleaned_prompt
-
-def get_numeric_input(prompt):
-  while True: 
-    try:
-      return int(get_user_input(prompt))
-    except ValueError:
-      print("Please enter a valid number")
-
-def get_yes_no(prompt):
-    while True:
-        response = get_user_input(prompt).lower()
-        if response in ["y", "yes"]:
-            return "yes"
-        if response in ["n", "no"]:
-            return "no"
-        print("Please enter a valid yes or no (Y/N)")
-
+from src.utils.json_helpers import get_exercises, save_exercises, get_exercise_names, get_progress
+from src.utils.input_helpers import get_numeric_input, get_user_input, get_yes_no
 
 def repl():
   while True:
@@ -148,6 +125,9 @@ def add_exercise():
   
   print(f"Added {exercise["name"]}")
   print(f"You have elected to do {exercise["reps_per_set"]} reps and {exercise["sets"]} of {exercise["name"]} {exercise["frequency"]} x times daily")
+  add_another_exercise = get_yes_no("Would you like to add another exercise? ")
+  if add_another_exercise == "yes":
+    add_exercise()
   return True
 
 def modify_exercise():
@@ -163,6 +143,13 @@ def modify_exercise():
 
 def print_progress():
   print("Your progress so far")
+  all_progress = get_progress()
+  progress = all_progress["progress"]
+  if not progress:
+    print("I'm sorry it doesn't look like you have made any progress yet.\nLog an exercise to get started")
+  else:
+    for success in progress:
+      print(f"success: {success}")
   # open progress report 
   # you've done x/y reps for exercise  
   # and either a congratulatory message
@@ -172,47 +159,47 @@ def log_exercise():
   print("recording exercise")
   exercises = get_exercises()
   # get all the exercises 
-  # enter a while loop here to keep prompting
-  # while true or exercises are not empty 
-  # print a list of the possible exercises and their reps 
-  # user inputs the exercise they want to track
-  # store in dictionary with timestamp 
-  # prompt for number of reps 
-  # remove list of exercises to do today 
+  data = get_exercises()
+  if data is None: 
+    print("Failed to load exercises")
+    return False
+  
+  # Get the exercise names 
+  # Show the exercises to the user 
+  # Ask which one they want to update 
+  # Check that the name is valid 
+  # Check the current date 
+  # Load in the progress.json
+  # If the name exists for the current date 
+    # We must update the current information 
+  # Otherwise we must add to the json with a new progress
 
 def delete_exercise():
-  print("deleting exercise")
-  # get all the exercises 
-  # ask which exercises the user would like to delete 
-  # delete the exercise 
-
-def get_exercises():
-  print("Getting exercises...")
-  # open the exercises file 
-  try:
-    with open("data/exercises.json", "r") as file:
-      data = file.read()
-      if not data: 
-        return {"exercises": []}
-      file.seek(0)
-      return json.load(file)
-  except FileNotFoundError:
-    default_data = {"exercises": []}
-    with open("data/exercises.json", "w") as file:
-      json.dump(default_data, file, indent=2)
-    return default_data
-  except json.JSONDecodeError:
-    print("Error something is wrong with the files")
-    return None
-  except Exception as e:
-    print(f"Getting an unknown exception: {e}")
-    return None
-
-def save_exercises(data):
-  try:
-    with open("data/exercises.json", "w") as file:
-      json.dump(data, file, indent=2)
-    return True
-  except Exception as e:
-    print(f"Error saving exercises: {e}")
+  print("=== Deleting exercise ===")
+  
+  # Load exercise data 
+  data = get_exercises()
+  if data is None:
+    print("Failed to load exercises")
     return False
+  
+  # Get exercise to delete 
+  print(f"You have the following exercises: ")
+  exercises = get_exercise_names(data)
+  for exercise in exercises: 
+    print(f"{exercise}")
+  exercise_name = get_user_input("Which would you like to delete? ")
+  
+  # Check validity and delete
+  if exercise_name in exercises:
+    data["exercises"] = [ex for ex in data["exercises"] if ex["name"] != exercise_name]
+    # save the data 
+    if not save_exercises(data):
+      print("Failed to delete exercise")
+      return False 
+    else:
+      print(f"Successfully deleted: {exercise_name}")
+  else:
+    print(f"Invalid exercise name")
+    return False
+

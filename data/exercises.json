@@ -1,0 +1,58 @@
+{
+  "exercises": [
+    {
+      "name": "Sit ups",
+      "equipment": [
+        "foam roller"
+      ],
+      "directions": [
+        "Lie down on a foam roller and allow your arms to drop towards the floor with your elbows straight as shown. ",
+        "Then slide",
+        "your arms towards over your head and then return your arms to your side as shown and repeat."
+      ],
+      "sets": 2,
+      "reps_per_set": 10,
+      "frequency": 3,
+      "total_reps": 60,
+      "hold_time": null,
+      "resistance": null,
+      "weight": null,
+      "date_added": "02/11/2024, 15:47:29",
+      "date_modified": "02/11/2024, 15:47:29"
+    },
+    {
+      "name": "testing",
+      "equipment": [
+        "N/A"
+      ],
+      "directions": [
+        "one"
+      ],
+      "sets": 3,
+      "reps_per_set": 2,
+      "frequency": 1,
+      "total_reps": 6,
+      "hold_time": null,
+      "resistance": "1",
+      "weight": "1",
+      "date_added": "02/11/2024, 16:24:01",
+      "date_modified": "02/11/2024, 16:24:01"
+    },
+    {
+      "name": "test1",
+      "equipment": [
+        "NA"
+      ],
+      "directions": [],
+      "sets": 1,
+      "reps_per_set": 1,
+      "frequency": 1,
+      "total_reps": 1,
+      "hold_time": null,
+      "resistance": null,
+      "weight": "8",
+      "date_added": "02/11/2024, 16:25:47",
+      "date_modified": "02/11/2024, 16:25:47"
+    }
+  ]
+}
