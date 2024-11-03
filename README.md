@@ -17,7 +17,7 @@ Instructions coming soon.
 #### Project set up basics
 
 - [x] Initialize project files, create virtual env, repo and install dependencies
-- [ ] Set up basic file structure for code organization
+- [x] Set up basic file structure for code organization
 
 #### Set up REPL
 
