@@ -15,7 +15,11 @@ def get_yes_no(prompt):
     while True:
         response = get_user_input(prompt).lower()
         if response in ["y", "yes"]:
-            return "yes"
+            return True
         if response in ["n", "no"]:
-            return "no"
+            return False
         print("Please enter a valid yes or no (Y/N)")
+
+def check_exercise_exists(data, exercise_name):
+   return any(exercise["name"].lower() == exercise_name.lower()
+              for exercise in data["exercises"])

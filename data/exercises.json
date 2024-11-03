@@ -21,20 +21,24 @@
       "date_modified": "02/11/2024, 15:47:29"
     },
     {
-      "name": "test1",
+      "name": "testing",
       "equipment": [
-        "NA"
+        "weights",
+        "stuff"
       ],
-      "directions": [],
-      "sets": 1,
-      "reps_per_set": 1,
-      "frequency": 1,
-      "total_reps": 1,
-      "hold_time": null,
+      "directions": [
+        "edited1",
+        "edited2"
+      ],
+      "sets": 2,
+      "reps_per_set": 10,
+      "frequency": 2,
+      "total_reps": 40,
+      "hold_time": "1",
       "resistance": null,
-      "weight": "8",
+      "weight": "0",
       "date_added": "02/11/2024, 16:25:47",
-      "date_modified": "02/11/2024, 16:25:47"
+      "date_modified": "03/11/2024, 15:07:17"
     }
   ]
 }

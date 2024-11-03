@@ -19,8 +19,6 @@ def get_progress():
   except Exception as e:
     print(f"Getting an unknown exception loading progress: {e}")
     return None 
-  
-
 
 def get_exercises():
   print("Getting exercises...")
