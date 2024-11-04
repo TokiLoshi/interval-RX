@@ -21,7 +21,6 @@ def get_progress():
     return None 
 
 def get_exercises():
-  print("Getting exercises...")
   # open the exercises file 
   try:
     with open("data/exercises.json", "r") as file:

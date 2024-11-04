@@ -1,44 +1,143 @@
 {
   "exercises": [
     {
-      "name": "Sit ups",
+      "name": "Pec Stretch in Doorway",
+      "equipment": [
+        "doorway"
+      ],
+      "directions": [
+        "place hand on doorway with elbow at 90 degree angle",
+        "turn away from door ",
+        "should feel a pec stretch"
+      ],
+      "sets": 2,
+      "reps_per_set": 2,
+      "frequency": 2,
+      "total_reps": 8,
+      "hold_time": "1",
+      "resistance": null,
+      "weight": null,
+      "date_added": "03/11/2024, 16:10:36",
+      "date_modified": "03/11/2024, 16:10:36"
+    },
+    {
+      "name": "D2 Flexion- Drawing the sword",
+      "equipment": [
+        "elastic band",
+        "anchor"
+      ],
+      "directions": [
+        "Start by holding an elastic band down by your side to fixate it with your uninvolved arm",
+        "Next, using the involved arm,draw the other end of the band upwards and towards the opposite side"
+      ],
+      "sets": 2,
+      "reps_per_set": 10,
+      "frequency": 1,
+      "total_reps": 20,
+      "hold_time": null,
+      "resistance": "easy",
+      "weight": null,
+      "date_added": "03/11/2024, 16:13:13",
+      "date_modified": "03/11/2024, 16:13:13"
+    },
+    {
+      "name": "Foam Roller Snow Angels",
       "equipment": [
         "foam roller"
       ],
       "directions": [
-        "Lie down on a foam roller and allow your arms to drop towards the floor with your elbows straight as shown. ",
-        "Then slide",
-        "your arms towards over your head and then return your arms to your side as shown and repeat."
+        "Lie down on a foam roller and allow your arms to drop towards the floor with your elbows straight",
+        "Slide your arms towards over your head and then return your arms to your side and repeat"
       ],
       "sets": 2,
       "reps_per_set": 10,
-      "frequency": 3,
-      "total_reps": 60,
+      "frequency": 1,
+      "total_reps": 20,
+      "hold_time": null,
+      "resistance": "",
+      "weight": null,
+      "date_added": "03/11/2024, 16:14:44",
+      "date_modified": "03/11/2024, 16:22:55"
+    },
+    {
+      "name": "Lacrosse ball self-massage to Posterior Capsule",
+      "equipment": [
+        "ball"
+      ],
+      "directions": [
+        "Place ball against wall and press chest into it just below clavicle",
+        "Move side to side and up and down",
+        "Repeat for upper shoulder on back"
+      ],
+      "sets": 1,
+      "reps_per_set": 10,
+      "frequency": 1,
+      "total_reps": 10,
       "hold_time": null,
       "resistance": null,
       "weight": null,
-      "date_added": "02/11/2024, 15:47:29",
-      "date_modified": "02/11/2024, 15:47:29"
+      "date_added": "03/11/2024, 16:27:20",
+      "date_modified": "03/11/2024, 16:28:29"
     },
     {
-      "name": "testing",
+      "name": "Prone T - Thumb up",
       "equipment": [
-        "weights",
-        "stuff"
+        "towel",
+        "bench"
       ],
       "directions": [
-        "edited1",
-        "edited2"
+        "Lie face down with your elbow straight and arm dangling down towards the floor",
+        "Next, set your scapula by retracting ittowards your spine and downward towards your feet.",
+        "Then, slowly raise your arm keeping your elbow straight the entiretime as shown.",
+        "Your thumb should be pointed in the upward direction as your arm raises."
       ],
       "sets": 2,
       "reps_per_set": 10,
-      "frequency": 2,
-      "total_reps": 40,
+      "frequency": 1,
+      "total_reps": 20,
+      "hold_time": null,
+      "resistance": null,
+      "weight": null,
+      "date_added": "03/11/2024, 16:30:09",
+      "date_modified": "03/11/2024, 16:30:09"
+    },
+    {
+      "name": "Sidelying - External rotation",
+      "equipment": [
+        "weight"
+      ],
+      "directions": [
+        "Lie on your side and hold a weight with your elbow bent and rested on your side. ",
+        "Next, draw up the your arm from theground towards the ceiling."
+      ],
+      "sets": 2,
+      "reps_per_set": 10,
+      "frequency": 1,
+      "total_reps": 20,
+      "hold_time": null,
+      "resistance": null,
+      "weight": "1 pound",
+      "date_added": "03/11/2024, 16:31:13",
+      "date_modified": "03/11/2024, 16:31:13"
+    },
+    {
+      "name": "Elastic Band Rows",
+      "equipment": [
+        "elastic band"
+      ],
+      "directions": [
+        "Holding elastic band with both hands, draw back the band as you bend your elbows.",
+        "Keep your elbows near the side ofyour body."
+      ],
+      "sets": 2,
+      "reps_per_set": 10,
+      "frequency": 1,
+      "total_reps": 20,
       "hold_time": "1",
       "resistance": null,
-      "weight": "0",
-      "date_added": "02/11/2024, 16:25:47",
-      "date_modified": "03/11/2024, 15:07:17"
+      "weight": null,
+      "date_added": "03/11/2024, 16:32:46",
+      "date_modified": "03/11/2024, 16:32:46"
     }
   ]
 }
