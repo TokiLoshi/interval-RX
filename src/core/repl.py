@@ -8,26 +8,26 @@ def repl():
     try:
       line = input(">>> ")
       match line:
-        case "exit":
-          break
-        case "start":
+        case "start" | "1":
           start()
-        case "stop":
+        case "stop" | "2":
           stop()
-        case "add_exercise":
+        case "add_exercise" | "3":
           add_exercise()
-        case "progress":
-          print_progress()
-        case "intervals":
-          intervals()
-        case "log_exercise":
-          log_exercise()
-        case "modify_exercise":
-          modify_exercise()
-        case "delete_exercise":
-          delete_exercise()
-        case "show_exercises":
+        case "show_exercises" | "4":
           show_exercises()
+        case "modify_exercise" | "5":
+          modify_exercise()
+        case "delete_exercise" | "6":
+          delete_exercise()
+        case "log_exercise" | "7":
+          log_exercise()
+        case "progress" | "8":
+          print_progress()
+        case "intervals" | "9":
+          intervals()
+        case "exit" | "0":
+          break
         case _:
           help()
     except Exception as e:
@@ -36,13 +36,13 @@ def repl():
 
 def help():
   print("\n=== IntervalRX Menu Options ======\n")
-  print("- 'start' to start a timer")
-  print("- 'stop' to stop a timer")
-  print("- 'add_exercise' to add an exercise to your routine")
-  print("- 'show_exercises' to see all of your exercises")
-  print("- 'log_exercise' to log an exercise and update your progress")
-  print("- 'modify_exercise' to modify an exercise and update your routine")
-  print("- 'delete_exercise' to delete an exercise and update your routine")
-  print("- 'progress' to print your progress report")
-  print("- 'intervals' to print your currently configured timers")
-  print("- 'exit' to stop running IntervalRX\n")
+  print("1. 'start' to start a timer")
+  print("2. 'stop' to stop a timer")
+  print("3. 'add_exercise' to add an exercise to your routine")
+  print("4. 'show_exercises' to see all of your exercises")
+  print("5. 'modify_exercise' to modify an exercise and update your routine")
+  print("6. 'delete_exercise' to delete an exercise and update your routine")
+  print("7. 'log_exercise' to log an exercise and update your progress")
+  print("8. 'progress' to print your progress report")
+  print("9. 'intervals' to print your currently configured timers")
+  print("0. 'exit' to stop running IntervalRX\n")

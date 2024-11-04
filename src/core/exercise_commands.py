@@ -1,13 +1,7 @@
 from src.utils.json_helpers import get_exercises, save_exercises, get_exercise_names
-from src.utils.input_helpers import get_numeric_input, get_user_input, get_yes_no, check_exercise_exists 
+from src.utils.input_helpers import get_numeric_input, get_user_input, get_yes_no, check_exercise_exists, select_exercise
 from datetime import datetime 
-
-"""
-Print helper for exercise functions
-"""
-def print_exercises(data):
-  for i, exercise in enumerate(data["exercises"]):
-      print(f"{i}. {exercise["name"]}")
+from src.utils.exercise_helpers import get_exercise_options, print_exercises, print_field_values
 
 """
 Gets and displays exercises
@@ -19,13 +13,18 @@ def show_exercises():
     print("\nFailed to load exercises")
     return False 
   
+  exercise_options = get_exercise_options(data)
+
+  # TODO:
+  # STUCK HERE PLSSS
+  
   print("\n=== Your Routine Exercises ==== ")
-  print_exercises(data)
+  print_exercises(exercise_options)
   print("\n")
 
   while True:
-    name = get_user_input("Which exercise would you like to know more about? ")
-    if name.lower() == "exit": 
+    name = select_exercise(exercise_options)
+    if name == False: 
       print(f"Exiting...\n")
       return False 
     if check_exercise_exists(data, name):
@@ -66,7 +65,9 @@ def show_exercises():
       print(f"{field} is not an options, please try again\n")
     
     else:
-      print(f"{options[field]} is {selected_exercise[options[field]]}")
+      field_name = options[field]
+      field_value = selected_exercise[options[field]]
+      print_field_values(field_name, field_value)
       if not get_yes_no("\nDo you want to check another field? "):
         break 
   
@@ -318,6 +319,10 @@ def delete_exercise():
   print("\n")
 
   exercise_name = get_user_input("Which would you like to delete? ")
+  
+  if exercise_name.lower() == "exit":
+    print("Exiting...")
+    return False 
   
   # Check validity and delete
   if exercise_name in exercises:
