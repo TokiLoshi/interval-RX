@@ -138,6 +138,24 @@
       "weight": null,
       "date_added": "03/11/2024, 16:32:46",
       "date_modified": "03/11/2024, 16:32:46"
+    },
+    {
+      "name": "change",
+      "equipment": [
+        "none"
+      ],
+      "directions": [
+        "stahp"
+      ],
+      "sets": 1,
+      "reps_per_set": 1,
+      "frequency": 1,
+      "total_reps": 1,
+      "hold_time": null,
+      "resistance": null,
+      "weight": null,
+      "date_added": "04/11/2024, 19:04:31",
+      "date_modified": "05/11/2024, 11:47:38"
     }
   ]
 }

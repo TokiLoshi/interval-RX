@@ -51,6 +51,8 @@ def save_progress(data):
     return False
 
 def save_exercises(data):
+  for i, exercise in enumerate(data["exercises"], 1):
+    print(f"{i} {exercise['name']}")
   try:
     with open("data/exercises.json", "w") as file:
       json.dump(data, file, indent=2)

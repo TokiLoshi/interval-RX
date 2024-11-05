@@ -2,6 +2,7 @@ from src.utils.json_helpers import get_exercises, save_exercises, get_exercise_n
 from src.utils.input_helpers import get_numeric_input, get_user_input, get_yes_no, select_option
 from datetime import datetime 
 from src.utils.exercise_helpers import check_exercise_exists, get_exercise_options, print_exercises, print_field_values, modify_exercise_name
+import json 
 
 """
 Gets and displays exercises
@@ -88,8 +89,9 @@ def add_exercise():
   if len(data["exercises"]) == 0: 
     print("\nYou don't have any exercises yet. Lets change that!\n")
   else:  
+    options = get_exercise_options(data)
     print("\n=== Current Exercises ===")
-    print_exercises(data)
+    print_exercises(options)
     print("\n")
   
   # Store new exercise
@@ -97,6 +99,8 @@ def add_exercise():
 
   # Get exercise fields
   name = get_user_input("\nExercise name: ")
+  if name.lower() == "exit":
+    return False 
 
   # Check user isn't trying to duplicate exercise
   if check_exercise_exists(data, name):
@@ -220,6 +224,7 @@ def modify_exercise():
           new_name = modify_exercise_name(data, name, selected_exercise)
           if new_name is False:
             return False 
+          old_name = name
           name = new_name
     
       # Modify equipment if requested 
@@ -277,10 +282,14 @@ def modify_exercise():
 
       # Update exercise in data 
       for i, exercise in enumerate(data["exercises"]):
-        if exercise["name"].lower() == name.lower():
+        print(f"checking {exercise["name"]} turning it to lower {exercise["name"].lower()} and seeing if its the same as {name.lower()} for {name}")
+        if exercise["name"].lower() == old_name.lower():
+          print(f"we have a match and we are updating {exercise["name"].lower()}")
           data["exercises"][i] = selected_exercise
+          print(f"Updated: {data["exercises"][i]}")
           break      
       
+      # print(f"Data being passed to save: {data}")
       # Save updated data to data/exercises.json
       saved = save_exercises(data)
       if not saved:
@@ -288,18 +297,18 @@ def modify_exercise():
         return False 
 
       # Show summary of the change 
-      if name != selected_exercise["name"]:
+      if old_name != selected_exercise["name"]:
         print(f"\nUpdated {name} to {selected_exercise["name"]}")
-        print(f"\nYou will now be doing {selected_exercise['reps_per_set']} of {selected_exercise['name']} for {selected_exercise['sets']} sets {selected_exercise['frequency']} x times a day")
+      print(f"\nYou will now be doing {selected_exercise['reps_per_set']} of {selected_exercise['name']} for {selected_exercise['sets']} sets {selected_exercise['frequency']} x times a day")
 
       # Check if user wants to modify another exercise
       if not get_yes_no("\nWould you like to modify another exercise? "):
         return True
+      
+      continue 
     except Exception as e:
       print("\nError updating fields: ", e)
       return False
-
-    return True
 
 """
 deletes an exercise entry from data/exercises.json
