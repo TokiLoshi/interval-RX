@@ -34,7 +34,7 @@ Instructions coming soon.
 
 #### Add start and stop commands
 
-- [ ] Load Exercise Options on Terminal along with reps, frequency
+- [x] Load Exercise Options on Terminal along with reps, frequency
 - [ ] Allow users to specify or rotate through pre-set exercises with each alert
 
 #### Install and Configure Tkinter for Alerts

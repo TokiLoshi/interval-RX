@@ -1,7 +1,7 @@
 from src.utils.json_helpers import get_exercises, save_exercises, get_exercise_names
-from src.utils.input_helpers import get_numeric_input, get_user_input, get_yes_no, check_exercise_exists, select_exercise
+from src.utils.input_helpers import get_numeric_input, get_user_input, get_yes_no, select_option
 from datetime import datetime 
-from src.utils.exercise_helpers import get_exercise_options, print_exercises, print_field_values
+from src.utils.exercise_helpers import check_exercise_exists, get_exercise_options, print_exercises, print_field_values, modify_exercise_name
 
 """
 Gets and displays exercises
@@ -13,66 +13,63 @@ def show_exercises():
     print("\nFailed to load exercises")
     return False 
   
-  exercise_options = get_exercise_options(data)
-
-  # TODO:
-  # STUCK HERE PLSSS
-  
-  print("\n=== Your Routine Exercises ==== ")
-  print_exercises(exercise_options)
-  print("\n")
-
   while True:
-    name = select_exercise(exercise_options)
-    if name == False: 
-      print(f"Exiting...\n")
-      return False 
-    if check_exercise_exists(data, name):
-      break
-    print(f"\n'{name}' not found. Please enter a valid exercise name\n")
-  
-  selected_exercise = {}
-  for exercise in data["exercises"]:
-    if exercise["name"].lower() == name.lower():
-      selected_exercise = exercise.copy()
-      break
-  
-  options = {
-    "1" : "equipment",
-    "2" : "directions",
-    "3" : "sets",
-    "4" : "reps_per_set",
-    "5" : "total_reps",
-    "6" : "hold_time",
-    "7" : "resistance",
-    "8" : "weight",
-    "9" : "date_added",
-    "10" : "date_modified"
-  }
+    # Show available options
+    exercise_options = get_exercise_options(data)
+    print("\n=== Your Routine Exercises ==== ")
+    print_exercises(exercise_options)
+    print("\n")
 
-  print(f"\nWhat do you want to check about {name}?")
+    # Get exercise selection 
+    name = select_option(exercise_options)
+    if name is False:
+      return False
   
-  while True:
-    print(f"\n=== Available fields for {name}: ===")
-    for key, value in options.items():
-      print(f"{key}: {value}")
+    # Find selected exercise 
+    selected_exercise = None
+    for exercise in data["exercises"]:
+      if exercise["name"].lower() == name.lower():
+        selected_exercise = exercise.copy()
+        break
+
+    if selected_exercise is None:
+      print(f"\nCould not find exercise: {name}")
+      print_exercises(exercise_options)
+  
+    field_options = {
+      "1" : "equipment",
+      "2" : "directions",
+      "3" : "sets",
+      "4" : "reps_per_set",
+      "5" : "total_reps",
+      "6" : "hold_time",
+      "7" : "resistance",
+      "8" : "weight",
+      "9" : "date_added",
+      "10" : "date_modified"
+    }
+
+    while True:
+      print(f"\n=== Available fields for {name}: ===")
+      for key, value in field_options.items():
+        print(f"{key}: {value}")
+  
+      field = select_option(field_options)
+      if field is False:
+        print("Exiting...")
+        break 
+
+      try: 
+        field_value = selected_exercise[field]
+        print_field_values(field, field_value)
+      except KeyError:
+        print(f"Error: '{field}' not found")
     
-    field = get_user_input("\nEnter the number of the field you want to learn more about: ")
-    if field.lower() == "exit": 
-      return False 
-    
-    if field not in options:
-      print(f"{field} is not an options, please try again\n")
-    
-    else:
-      field_name = options[field]
-      field_value = selected_exercise[options[field]]
-      print_field_values(field_name, field_value)
       if not get_yes_no("\nDo you want to check another field? "):
         break 
   
-  if get_yes_no("Do you want to view a different exercise? "):
-    return show_exercises()
+    if not get_yes_no("Do you want to view a different exercise? "):
+      break
   return True
 
 """
@@ -185,119 +182,124 @@ def modify_exercise():
   if data is None:
     print("\nFailed to load exercises")
     return False 
-
-  print("\n=== Current Exercises ===")
-  print_exercises(data)
-  print("\n")
-
-  while True:
-    name = get_user_input("Exercise name (or 'exit' to cancel): ")
-    if name.lower() == "exit":
-      print(f"\nAbandonning edits...\n")
-      return False
-    if check_exercise_exists(data, name):
-      break 
-    else:
-      print(f"\n'{name}' not found. Please select an existing exercise. These are the exercises in your routine: ")
-      print_exercises(data)  
   
-  # Update exercise name 
-  modified_exercise = {}
-  for exercise in data["exercises"]:
-    if exercise["name"].lower() == name.lower():
-      modified_exercise = exercise.copy()
-      break
+  while True:
+    # Show available options 
+    exercise_options = get_exercise_options(data)
+    print("\n=== Your Routine Exercises ===")
+    print_exercises(exercise_options)
+    print("\n")
 
-  print(f"\n=== {name} ====\n")
-  for key, value in modified_exercise.items():
-    print(f"{key}: {value}")
-  print("\n")
+    # Get exercise selection
+    name = select_option(exercise_options)
+    if name is False:
+      print(f"Exiting...")
+      return False
 
-  # Try update properties 
-  try:
-    if get_yes_no("Do you want to modify the name? "):
-      while True:
-        new_name = get_user_input("Edited exercise name (or 'exit' to cancel): ")
-        if not new_name:
-          new_name = name 
-          break
-        if new_name.lower() == "exit":
-          print(f"\nAbandonning edits...")
-          return False 
-        if new_name.lower() != name.lower() and check_exercise_exists(data, new_name):
-          print(f"\n{new_name} already exists. Here are all the exercises you currently have")
-          print_exercises(data)
-        else:
-          modified_exercise["name"] = new_name 
-          break
-    
-    # Update equipment 
-    if  get_yes_no("Do you want to modify any equipment? "):
-      new_equipment = get_user_input("What equipment will you be using (separate multple items with commas): ")
-      modified_exercise["equipment"] = [item.strip() for item in new_equipment.split(",") if item.strip()]
-    
-    if get_yes_no("Do you want to modify the directions? "):
-      new_directions = []
-      print("\nEnter the new directions one step at a time")
-      print("\nPress 'Enter' twice to complete this step")
-      while True:
-        step = input(">.. ")
-        if not step:
-          break
-        new_directions.append(step)
-      modified_exercise["directions"] = new_directions 
-    
-    if get_yes_no("Do you want to modify the sets? "):
-      modified_exercise["sets"] = get_numeric_input("New sets (numbers only): ")
-    
-    if get_yes_no("Do you want to modify the reps? "):
-      modified_exercise["reps_per_set"] = get_numeric_input("New reps (numbers only): ")
-    
-    if get_yes_no("Do you want to adjust how many times a day you will do this exercise? "):
-      modified_exercise["frequency"] = get_numeric_input("New daily frequency (numbers only): ")
+    selected_exercise = None
+    for exercise in data["exercises"]:
+      if exercise["name"].lower() == name.lower():
+        selected_exercise = exercise.copy()
+        break
 
-    modified_exercise["total_reps"] = (
-      modified_exercise["sets"] * 
-      modified_exercise["reps_per_set"] * 
-      modified_exercise["frequency"]
+    if selected_exercise is None:
+      print(f"\nCould not find exercise: {name}. These are the exercises")
+      print_exercises(data)
+      continue   
+
+
+    print(f"\n=== {name} ====\n")
+    for key, value in selected_exercise.items():
+      # print(f"{key}: {value}")
+      print_field_values(key, value)
+    print("\n")
+
+    try:
+      # Modify name if requested 
+      if get_yes_no("Do you want to modify the name? "):
+          new_name = modify_exercise_name(data, name, selected_exercise)
+          if new_name is False:
+            return False 
+          name = new_name
+    
+      # Modify equipment if requested 
+      if  get_yes_no("Do you want to modify any equipment? "):
+        new_equipment = get_user_input("What equipment will you be using (separate multple items with commas): ")
+        selected_exercise["equipment"] = [item.strip() for item in new_equipment.split(",") if item.strip()]
+
+      # Modify directions if requested 
+      if get_yes_no("Do you want to modify the directions? "):
+        new_directions = []
+        print("\nEnter the new directions one step at a time")
+        print("\nPress 'Enter' twice to complete this step")
+        while True:
+          step = input(">.. ")
+          if not step:
+            break
+          new_directions.append(step)
+          selected_exercise["directions"] = new_directions 
+    
+      # Modify reps, sets, frequency if requested 
+      if get_yes_no("Do you want to modify the sets? "):
+        selected_exercise["sets"] = get_numeric_input("New sets (numbers only): ")
+    
+      if get_yes_no("Do you want to modify the reps? "):
+        selected_exercise["reps_per_set"] = get_numeric_input("New reps (numbers only): ")
+    
+      if get_yes_no("Do you want to adjust how many times a day you will do this exercise? "):
+        selected_exercise["frequency"] = get_numeric_input("New daily frequency (numbers only): ")
+
+      # Update total reps 
+      selected_exercise["total_reps"] = (
+          selected_exercise["sets"] * 
+          selected_exercise["reps_per_set"] * 
+          selected_exercise["frequency"]
       )
 
-    if get_yes_no("Do you want to modify the hold time? "):
-      modified_exercise["hold_time"] = get_user_input("New hold time: ")
-    
-    if get_yes_no("Do you want to modify the resistance? "):
-      modified_exercise["resistance"] = get_user_input("New resistance: ")
+      # Modify other optional fields if requested 
+      if get_yes_no("Do you want to modify the hold time? "):
+        selected_exercise["hold_time"] = get_user_input("New hold time: ")
+          
+      if get_yes_no("Do you want to modify the resistance? "):
+        selected_exercise["resistance"] = get_user_input("New resistance: ")
 
-    if get_yes_no("Do you want to modify the weight? "):
-      modified_exercise["weight"] = get_user_input("New weight: ")
+      if get_yes_no("Do you want to modify the weight? "):
+        selected_exercise["weight"] = get_user_input("New weight: ")
 
-    modified_date = datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
-    modified_exercise["date_modified"] = modified_date
-    
-    print(f"\n=== Updated Exercise: {modified_exercise["name"]}")
-    for key, value in modified_exercise.items():
-      print(f"{key} : {value}")
+      # Update modification date 
+      modified_date = datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
+      selected_exercise["date_modified"] = modified_date
+      
+      # Display updated exercise 
+      print(f"\n=== Updated Exercise: {selected_exercise["name"]}")
+      for key, value in selected_exercise.items():
+        print(f"{key} : {value}")
 
-    for i, exercise in enumerate(data["exercises"]):
-      if exercise["name"].lower() == name.lower():
-        data["exercises"][i] = modified_exercise
-        break      
-        
-    saved = save_exercises(data)
-    if not saved:
-      print("\nFailed to modify exercises, something went wrong, please try again")
-      return False 
-    
-    if name != modified_exercise["name"]:
-      print(f"\nUpdated {name} to {modified_exercise["name"]}")
-    print(f"\nYou will now be doing {modified_exercise['reps_per_set']} of {modified_exercise['name']} for {modified_exercise['sets']} sets {modified_exercise['frequency']} x times a day")
+      # Update exercise in data 
+      for i, exercise in enumerate(data["exercises"]):
+        if exercise["name"].lower() == name.lower():
+          data["exercises"][i] = selected_exercise
+          break      
+      
+      # Save updated data to data/exercises.json
+      saved = save_exercises(data)
+      if not saved:
+        print("\nFailed to modify exercises, something went wrong, please try again")
+        return False 
 
-    if get_yes_no("\nWould you like to modify another exercise? "):
-      return modify_exercise() 
-    return True  
-  except Exception as e:
-    print("\nError updating fields: ", e)
-    return False
+      # Show summary of the change 
+      if name != selected_exercise["name"]:
+        print(f"\nUpdated {name} to {selected_exercise["name"]}")
+        print(f"\nYou will now be doing {selected_exercise['reps_per_set']} of {selected_exercise['name']} for {selected_exercise['sets']} sets {selected_exercise['frequency']} x times a day")
+
+      # Check if user wants to modify another exercise
+      if not get_yes_no("\nWould you like to modify another exercise? "):
+        return True
+    except Exception as e:
+      print("\nError updating fields: ", e)
+      return False
+
+    return True
 
 """
 deletes an exercise entry from data/exercises.json

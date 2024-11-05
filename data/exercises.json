@@ -12,13 +12,13 @@
       ],
       "sets": 2,
       "reps_per_set": 2,
-      "frequency": 2,
-      "total_reps": 8,
-      "hold_time": "1",
+      "frequency": 1,
+      "total_reps": 4,
+      "hold_time": "2",
       "resistance": null,
       "weight": null,
       "date_added": "03/11/2024, 16:10:36",
-      "date_modified": "03/11/2024, 16:10:36"
+      "date_modified": "04/11/2024, 17:59:22"
     },
     {
       "name": "D2 Flexion- Drawing the sword",

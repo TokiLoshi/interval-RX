@@ -14,26 +14,30 @@ def get_numeric_input(prompt):
 def get_yes_no(prompt):
     while True:
         response = get_user_input(prompt).lower()
+        if response == "exit":
+           return False
         if response in ["y", "yes"]:
             return True
         if response in ["n", "no"]:
             return False
         print("Please enter a valid yes or no (Y/N)")
 
-def check_exercise_exists(data, exercise_name):
-   return any(exercise["name"].lower() == exercise_name.lower()
-              for exercise in data["exercises"])
-
 """
 Handles selection of exercises using number inputs from user 
 """
-def select_exercise(options):
+def select_option(options):
    while True: 
-      selection = get_user_input("\nEnter an exercise: ")
-
-      print(f"Selection: {selection}")
+      selection = get_user_input("\nEnter an option: ").strip()
+      # check for exit
       if isinstance(selection, str) and selection.lower() == "exit":
          return False 
-      if selection in options or selection.lower() in options:
+      
+      # check if selection is a number
+      if selection in options: 
          return options[selection]
+      
+      # check if selection is an exercise name
+      for key, value in options.items():
+         if selection.lower() == value.lower():
+            return options[key]
       print(f"\n{selection} is not an option, please enter a valid exercise by name or number")
