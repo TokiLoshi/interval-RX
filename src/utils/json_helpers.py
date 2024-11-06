@@ -1,26 +1,30 @@
 import json 
 
 def get_progress():
-  print("Loading progress...")
+  print("\nLoading progress...")
   try:
     with open("data/progress.json", "r") as file:
       data = file.read()
       if not data:
-        return {"progress": []}
+        default_data = {"progress" : {}}
+        save_progress(default_data)
+      file.seek(0)
       return json.load(file)
   except FileNotFoundError: 
-    default_data = {"progress": []}
+    print("\nFile not found adding some default data to the file")
+    default_data = {"progress": {}}
     with open("data/progress.json", "w") as file: 
       json.dump(default_data, file, indent=2)
     return default_data 
   except json.JSONDecodeError:
-    print("Error: something is wrong with the progress file")
+    print("\nError: something is wrong with the progress file")
     return None
   except Exception as e:
-    print(f"Getting an unknown exception loading progress: {e}")
+    print(f"\nGetting an unknown exception loading progress: {e}")
     return None 
 
 def get_exercises():
+  print("\nLoading exercises...")
   # open the exercises file 
   try:
     with open("data/exercises.json", "r") as file:
@@ -35,10 +39,10 @@ def get_exercises():
       json.dump(default_data, file, indent=2)
     return default_data
   except json.JSONDecodeError:
-    print("Error something is wrong with the exercises files")
+    print("\nError something is wrong with the exercises files")
     return None
   except Exception as e:
-    print(f"Getting an unknown exception loading exercises: {e}")
+    print(f"\nGetting an unknown exception loading exercises: {e}")
     return None
   
 def save_progress(data): 
@@ -47,7 +51,7 @@ def save_progress(data):
       json.dump(data, file, indent=2)
     return True
   except Exception as e:
-    print(f"Error saving progress: {e}")
+    print(f"\nError saving progress: {e}")
     return False
 
 def save_exercises(data):
@@ -58,7 +62,7 @@ def save_exercises(data):
       json.dump(data, file, indent=2)
     return True
   except Exception as e:
-    print(f"Error saving exercises: {e}")
+    print(f"\nError saving exercises: {e}")
     return False
   
 def get_exercise_names(data):

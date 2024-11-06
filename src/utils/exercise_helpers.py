@@ -42,7 +42,7 @@ def modify_exercise_name(data, current_name, selected_exercise):
     if not new_name:
       return current_name 
     if new_name.lower() == "exit":
-      print("Abandonning edits...")
+      print("\nAbandonning edits...")
       return False
     if (new_name.lower() != current_name.lower) and check_exercise_exists(data, new_name):
       print(f"\n{new_name} already exists. Here are all the exercises you currently have")

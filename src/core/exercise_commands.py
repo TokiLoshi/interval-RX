@@ -2,7 +2,6 @@ from src.utils.json_helpers import get_exercises, save_exercises, get_exercise_n
 from src.utils.input_helpers import get_numeric_input, get_user_input, get_yes_no, select_option
 from datetime import datetime 
 from src.utils.exercise_helpers import check_exercise_exists, get_exercise_options, print_exercises, print_field_values, modify_exercise_name
-import json 
 
 """
 Gets and displays exercises
@@ -24,6 +23,7 @@ def show_exercises():
     # Get exercise selection 
     name = select_option(exercise_options)
     if name is False:
+      print("Exiting...")
       return False
   
     # Find selected exercise 
@@ -125,7 +125,7 @@ def add_exercise():
   exercise["directions"] = directions 
 
   print(f"\nFor this next 3 questions please only use numbers ")
-  sets = get_numeric_input("How sets would you like to do? ")
+  sets = get_numeric_input("How many sets would you like to do? ")
   exercise["sets"] = sets
   
   reps = get_numeric_input("How many reps per set? ")
@@ -282,11 +282,8 @@ def modify_exercise():
 
       # Update exercise in data 
       for i, exercise in enumerate(data["exercises"]):
-        print(f"checking {exercise["name"]} turning it to lower {exercise["name"].lower()} and seeing if its the same as {name.lower()} for {name}")
         if exercise["name"].lower() == old_name.lower():
-          print(f"we have a match and we are updating {exercise["name"].lower()}")
           data["exercises"][i] = selected_exercise
-          print(f"Updated: {data["exercises"][i]}")
           break      
       
       # print(f"Data being passed to save: {data}")
@@ -312,6 +309,7 @@ def modify_exercise():
 
 """
 deletes an exercise entry from data/exercises.json
+As this is destructive, relying on user to type the name out
 """
 def delete_exercise():
   print("\n=== Deleting exercise ===")

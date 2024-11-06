@@ -1,0 +1,28 @@
+{
+  "progress": {
+    "05/11/2024": {
+      "exercises": [
+        {
+          "name": "change",
+          "sets_completed": 3,
+          "reps_completed": 13,
+          "total_reps": 16,
+          "hold_time": "30",
+          "frequency": 2,
+          "last_updated": "16:21:21",
+          "notes": []
+        },
+        {
+          "name": "Pec Stretch in Doorway",
+          "sets_completed": 2,
+          "reps_completed": 2,
+          "total_reps": 4,
+          "hold_time": "1",
+          "frequency": 1,
+          "last_updated": "16:21:53",
+          "notes": []
+        }
+      ]
+    }
+  }
+}
