@@ -1,17 +1,16 @@
 from datetime import datetime 
-from src.core.timer_commands import start, stop, intervals
 from src.core.exercise_commands import show_exercises, add_exercise, delete_exercise, modify_exercise
 from src.core.progress_commands import print_progress, log_exercise
 
-def repl():
+def repl(desk_timer):
   while True:
     try:
       line = input(">>> ")
       match line:
         case "start" | "1":
-          start()
+          desk_timer.start()
         case "stop" | "2":
-          stop()
+          desk_timer.stop()
         case "add_exercise" | "3":
           add_exercise()
         case "show_exercises" | "4":
@@ -24,9 +23,7 @@ def repl():
           log_exercise()
         case "progress" | "8":
           print_progress()
-        case "intervals" | "9":
-          intervals()
-        case "exit" | "0":
+        case "exit" | "9":
           break
         case _:
           help()
@@ -44,5 +41,4 @@ def help():
   print("6. 'delete_exercise' to delete an exercise and update your routine")
   print("7. 'log_exercise' to log an exercise and update your progress")
   print("8. 'progress' to print your progress report")
-  print("9. 'intervals' to print your currently configured timers")
-  print("0. 'exit' to stop running IntervalRX\n")
+  print("9. 'exit' to stop running IntervalRX\n")
