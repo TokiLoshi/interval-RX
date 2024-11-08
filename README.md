@@ -21,44 +21,39 @@ Instructions coming soon.
 
 #### Set up REPL
 
-- [ ] Implement a simple REPL interface with commands for start, stop, and summary
-- [ ] Test command handling to ensure smooth REPL interaction
+- [x] Implement a simple REPL interface with commands for start, stop, and summary
 
 #### Configure timer and intervals
 
-- [ ] Set up timer mechanism to trigger reminders at regular intervals
-- [ ] Add a integration for how long on this project
-- [ ] Add customization of interval duration through a configuration file or REPL input
+- [x] Set up timer mechanism to trigger reminders at regular intervals
 
 ### Phase 2: Exercise and Tracking Features
 
 #### Add start and stop commands
 
 - [x] Load Exercise Options on Terminal along with reps, frequency
-- [ ] Allow users to specify or rotate through pre-set exercises with each alert
 
 #### Install and Configure Tkinter for Alerts
 
-- [ ] Display popup alerts using Tkinter to prompt exercise breaks.
-- [ ] set up alert behaviour to dismiss alert and update progress
+- [x] Display popup alerts using Tkinter to prompt exercise breaks.
+- [x] set up alert behaviour to dismiss alert
 
 #### Add progress tracking
 
-- [ ] Track completed and missed exercises in JSON file
-- [ ] Each completed alert records time and completion status
+- [x] Track completed and missed exercises in JSON file
+- [x] Each completed alert records time
 
 #### End-of-day summary
 
-- [ ] Display a summary when user enters stop command.
+- [x] Display a summary when user enters stop command.
 - [ ] Print completion rate and skipped intervals
 
-### Phase3: Testing and Enhancements
-
-#### Add test cases
-
--[ ] Write test cases to cover REPL command, timer intervals and JSON logging -[ ] Test Tkinter pop-up for stable alert handling
-
-#### Identify and map out stretch features
+#### Roadmap for future features
 
 - [ ] add sound alert
 - [ ] add do not disturb mode
+- [ ] allow for autocomplete
+- [ ] add testing
+- [ ] reconfigure procedural fucntions for OOP (turn exercise and commands into a class for scalability)
+- [ ] create multiple timers
+- [ ] add streaks

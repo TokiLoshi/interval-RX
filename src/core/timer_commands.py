@@ -1,4 +1,4 @@
-import datetime, timedelta  
+from datetime import datetime, timedelta  
 from src.core.progress_commands import print_progress
 import tkinter as tk 
 
@@ -19,13 +19,14 @@ class DeskTimer:
       self.root = tk.Tk()
       self.root.title("Desk Timer")
       self.root.geometry("300x100")
-      self.status_label = tk.Label(self.root, text="Timer is running...")
+      self.status_label = tk.Label(self.root, text=f"Timer started running...\n{datetime.now().strftime("%D, %H:%m")}")
       self.status_label.pack(pady=20)
 
       # Set up timer
       self.timer_running = True
       self.next_reminder_time = datetime.now() + timedelta(seconds=self.work_interval)
-      print(f"Timer started...{datetime.now()}")
+      
+      print(f"Timer started...{datetime.now().strftime("%D, %H:%m")}")
       self._check_reminder()
 
       self.root.protocol("WM_DELETE_WINDOW", self.stop)
@@ -38,11 +39,12 @@ class DeskTimer:
       print("Stopping timer")
       self.timer_running = False
       print(f"Total desktime: {self.total_time / 60:.2} minutes")
+      print_progress()
       
       # Cancel any pending reminders 
       if self.root and self.check_reminder_id:
         self.root.after_cancel(self.check_reminder_id)
-        self.reminder_id = None
+        self.check_reminder_id = None
 
       # Clean up windows:
       if self.reminder_window:
@@ -56,13 +58,13 @@ class DeskTimer:
     return "Timer is not running "
   
   def _check_reminder(self):
-    if not self.reminder.running or not self.root:
+    if not self.timer_running or not self.root:
       return 
     current_time = datetime.now()
     time_until = self.next_reminder_time - current_time
 
-    self.status.label.config(
-      text=f"Next reminder in: {time_until} seconds\nTotalTime: {self.total_time/60:.1f}"
+    self.status_label.config(
+      text=f"Next reminder in: {time_until.seconds} seconds\nTotalTime: {self.total_time/60:.1f}"
     )
 
     # Show reminder if it's time 
@@ -88,13 +90,13 @@ class DeskTimer:
         self.reminder_window.transient(self.root)
 
         message = tk.Label(self.reminder_window, 
-                           text=f"Time to fix that shoulder!\n\nYou've been sitting for {self.work_interval/50:.1f} minutes", 
+                           text=f"Time to fix that shoulder!\n\nYou've been sitting for {self.work_interval/60:.1f} minutes", 
                            wraplength=250)
         message.pack(pady=20)
         done_button = tk.Button(
           self.reminder_window,
           text="Done",
-          command=self.close_reminder
+          command=self._close_reminder
         )
 
         done_button.pack(pady=10)
